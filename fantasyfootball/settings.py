@@ -26,7 +26,8 @@ SECRET_KEY = 'k#_x=8!7!f!#!x$-^$v$%qz=h0ne$i0*+&g!bx)!i-tk3!bg)5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com',
+                 'levinson-fantasy-football.herokuapp.com']
 
 # Application definition
 
