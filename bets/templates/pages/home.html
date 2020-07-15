@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block head_title %} Home {% endblock head_title %}
+{% block content %} Welcome to fantasy bets football!
+
+<div id="bets">
+  Loading
+</div>
+
+<script>
+  const bets = document.getElementById("bets");
+  const xhr = new XMLHttpRequest();
+  const method = "GET";
+  const url = "/bets";
+  const responseType = "json";
+  const betList = document.createElement("div");
+  xhr.responseType = responseType;
+
+  xhr.open(method, url);
+  xhr.onload = function () {
+    const { response } = xhr.response;
+    response.forEach((element) => {
+      betList.innerHTML += "<h1>" + element.owner + "</h1>";
+    });
+    bets.innerHTML = "";
+    bets.appendChild(betList);
+    console.log(response);
+  };
+  xhr.send();
+</script>
+
+{% endblock content %}
