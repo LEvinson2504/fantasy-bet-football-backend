@@ -3,6 +3,11 @@ from django.shortcuts import render
 
 from .models import Bets, User
 
+
+import requests
+from bs4 import BeautifulSoup
+import lxml
+
 # Create your views here.
 
 
@@ -47,3 +52,29 @@ def bet_detailed_view(req, bet_id, *args, **kwargs):
         status = 404
 
     return JsonResponse(data, status=status)
+
+
+def news_view(req, *args, **kwargs):
+    source = requests.get('https://www.skysports.com/football/news').text
+    soup = BeautifulSoup(source, 'lxml')
+
+    news_list = soup.find_all('div', class_='news-list__body')
+
+    titles = []
+    stories = []
+    for news in news_list:
+        title = news.find('a', class_='news-list__headline-link').text.strip()
+        titles.append(title)
+        story = news.find('p', class_='news-list__snippet').text.strip()
+        stories.append(story)
+
+    for i in range(len(titles)):
+        print(titles[i])
+        print(stories[i])
+        print(" ")
+
+    data = {
+        "titles": titles,
+        "stories": stories
+    }
+    return JsonResponse(data, status=200)

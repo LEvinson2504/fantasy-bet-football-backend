@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path  # was known as url
-from bets.views import home_view, bet_detailed_view, bet_list_view
+from bets.views import home_view, bet_detailed_view, bet_list_view, news_view
 
 
 urlpatterns = [
@@ -23,4 +23,5 @@ urlpatterns = [
     path('', home_view),
     path('bets', bet_list_view),
     path('bets/<int:bet_id>', bet_detailed_view),
+    path('news', news_view),
 ]
