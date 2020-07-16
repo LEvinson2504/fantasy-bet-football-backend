@@ -72,9 +72,10 @@ def news_view(req, *args, **kwargs):
         print(titles[i])
         print(stories[i])
         print(" ")
-
-    data = {
-        "titles": titles,
-        "stories": stories
-    }
-    return JsonResponse(data, status=200)
+    data = []
+    for i in range(len(titles)):
+        data.append({
+            "title": titles[i],
+            "story": stories[i]
+        })
+    return JsonResponse(data, status=200, safe=False)
