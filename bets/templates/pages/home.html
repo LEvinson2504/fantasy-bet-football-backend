@@ -1,47 +1,9 @@
 {% extends "base.html" %} {% block head_title %} Home {% endblock head_title %}
 {% block content %} Welcome to fantasy bets football!
 
-<div id="">
+<div id="bets">
   Loading
 </div>
-
-<div id="app">
-  <bets-list v-for="bet in bets" v-bind:key="bet.owner" v-bind:name="bet.owner">
-  </bets-list>
-  <div v-for="bet in bets">${bet.owner}</div>
-</div>
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script>
-  // imports
-  import axios from "axios";
-</script>
-<script>
-  // Vue App
-
-  Vue.component("bets-list", {
-    props: ["name"],
-    template: "<h3>${name} hello?</h3>",
-  });
-
-  var app = new Vue({
-    el: "#app",
-    delimiters: ["${", "}"],
-    data() {
-      return {
-        bets: [],
-      };
-    },
-    mounted() {
-      axios.get("/bets").then((response) => {
-        const res = response.data.response;
-        this.bets = res;
-      });
-    },
-  });
-</script>
-
 <script>
   const bets = document.getElementById("bets");
   const xhr = new XMLHttpRequest();
