@@ -1,19 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User 
 
 # Create your models here.
-
-
 class Bets(models.Model):
-    owner = models.CharField(max_length=30, null=True)
-    amount = models.IntegerField()
+    amount = models.IntegerField(default=0)
     match_id = models.IntegerField()
     home_points = models.IntegerField()
     away_points = models.IntegerField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
-
-class User(models.Model):
-    bets = models.ForeignKey(
-        Bets, on_delete=models.CASCADE, null=True)
-    user_name = models.CharField(max_length=30, primary_key=True)
-    email = models.CharField(max_length=30, unique=True)
-    points = models.IntegerField(default=0)
+    def __str__(self):
+    	return f"{self.author} bets on {self.home_points}-{self.away_points} with {self.amount}"

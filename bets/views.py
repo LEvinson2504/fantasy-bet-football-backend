@@ -1,12 +1,14 @@
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render
 
-from .models import Bets, User
-
+from .models import Bets
 
 import requests
 from bs4 import BeautifulSoup
 import lxml
+
+import json
+from django.core import serializers
 
 # Create your views here.
 
@@ -20,14 +22,21 @@ def bet_list_view(req, *args, **kwargs):
     """
     Rest Api view
     to be consumed by a client
-    TODO return all required data from bets here
+    TODO make it using try catch like below 
     return JSON
     """
     qs = Bets.objects.all()
-    bet_list = [{"home": x.home_points, "owner": x.owner} for x in qs]
+
+    qs = [{
+        "bet_id": x.id,
+        "home_points": x.home_points,
+        "away_points": x.away_points,
+        "match_id": x.match_id,
+        "amount": x.amount, }
+        for x in qs]
     data = {
         "isUser": False,
-        "response": bet_list
+        "response": qs,
     }
     return JsonResponse(data)
 
